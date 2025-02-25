@@ -1,0 +1,425 @@
+title#1	Project members permissions							
+title#1 01	Analytics							
+	Project permissions for analytics features including value streams, usage trends, product analytics, and insights.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View issue analytics	✓	✓	✓	✓	✓	✓	
+	View value stream analytics	✓	✓	✓	✓	✓	✓	
+	View CI/CD analytics			✓	✓	✓	✓	
+	View code review analytics			✓	✓	✓	✓	
+	View DORA metrics			✓	✓	✓	✓	
+	View merge request analytics			✓	✓	✓	✓	
+	View repository analytics			✓	✓	✓	✓	
+	View Value Streams Dashboard & AI impact analytics			✓	✓	✓	✓	
+								
+title#1 02	Application security							
+	Project permissions for application security features including dependency management, security analyzers, security policies, and vulnerability management.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View dependency list				✓	✓	✓	
+	View licenses in dependency list				✓	✓	✓	
+	View security dashboard				✓	✓	✓	
+	View vulnerability report				✓	✓	✓	
+	Create vulnerability manually				✓	✓	✓	
+	Create issue from vulnerability finding				✓	✓	✓	
+	Create on-demand DAST scans				✓	✓	✓	
+	Run on-demand DAST scans				✓	✓	✓	
+	Create individual security policies				✓	✓	✓	
+	Change individual security policies				✓	✓	✓	
+	Delete individual security policies				✓	✓	✓	
+	Create CVE ID request					✓	✓	
+	Change vulnerability status					✓	✓	The admin_vulnerability permission was removed from the Developer role in GitLab 17.0.
+	Create or assign security policy project						✓	
+	Manage security configurations						✓	
+								
+title#1 03	CI/CD							
+	GitLab CI/CD permissions for some roles can be modified by these settings:							
+	Public pipelines: When set to public, gives access to certain CI/CD features to Guest project members.							
+	Pipeline visibility: When set to Everyone with Access, gives access to certain CI/CD “view” features to non-project members.							
+	Project Owners can perform any listed action, and can delete pipelines:							
+	Action	Non-member	Guest	Planner	Reporter	Developer	Maintainer	Notes
+	View existing artifacts	✓	✓	✓	✓	✓	✓	Non-members and guests: Only if the project is public.
+	View list of jobs	✓	✓	✓	✓	✓	✓	"Non-members: Only if the project is public and Public pipelines is enabled in Project Settings > CI/CD.
+Guests: Only if Public pipelines is enabled in Project Settings > CI/CD."
+	View artifacts	✓	✓	✓	✓	✓	✓	"Non-members: Only if the project is public, Public pipelines is enabled in Project Settings > CI/CD, and artifacts:public: false is not set on the job.
+Guests: Only if Public pipelines is enabled in Project Settings > CI/CD and artifacts:public: false is not set on the job.
+Reporters: Only if artifacts:public: false is not set on the job."
+	Download artifacts	✓	✓	✓	✓	✓	✓	"Non-members: Only if the project is public, Public pipelines is enabled in Project Settings > CI/CD, and artifacts:public: false is not set on the job.
+Guests: Only if Public pipelines is enabled in Project Settings > CI/CD and artifacts:public: false is not set on the job.
+Reporters: Only if artifacts:public: false is not set on the job."
+	View environments	✓	✓	✓	✓	✓	✓	Non-members and guests: Only if the project is public.
+	View job logs and job details page	✓	✓	✓	✓	✓	✓	"Non-members: Only if the project is public and Public pipelines is enabled in Project Settings > CI/CD.
+Guests: Only if Public pipelines is enabled in Project Settings > CI/CD."
+	View pipelines and pipeline details pages	✓	✓	✓	✓	✓	✓	"Non-members: Only if the project is public and Public pipelines is enabled in Project Settings > CI/CD.
+Guests: Only if Public pipelines is enabled in Project Settings > CI/CD."
+	View pipelines tab in MR	✓	✓	✓	✓	✓	✓	Non-members and guests: Only if the project is public.
+	View vulnerabilities in a pipeline		✓	✓	✓	✓	✓	Guests: Only if Public pipelines is enabled in Project Settings > CI/CD.
+	Run deployment job for a protected environment				✓	✓	✓	"Reporters: Only if the user is part of a group with access to the protected environment.
+Developers and maintainers: Only if the user is allowed to deploy to the protected branch."
+	View agents for Kubernetes					✓	✓	
+	View project Secure Files					✓	✓	
+	Download project Secure Files					✓	✓	
+	View a job with debug logging					✓	✓	
+	Create environments					✓	✓	
+	Delete environments					✓	✓	
+	Stop environments					✓	✓	
+	Run CI/CD pipeline					✓	✓	
+	Run CI/CD pipeline for a protected branch					✓	✓	Developers and maintainers: Only if the user is allowed to merge or push to the protected branch.
+	Run CI/CD job					✓	✓	
+	Delete job logs or job artifacts					✓	✓	Developers: Only if the job was triggered by the user and runs for a non-protected branch.
+	Enable review apps					✓	✓	
+	Cancel jobs					✓	✓	Cancellation permissions can be restricted in the pipeline settings.
+	Retry jobs					✓	✓	
+	Read Terraform state					✓	✓	
+	Run interactive web terminals					✓	✓	
+	Use pipeline editor					✓	✓	
+	Manage agents for Kubernetes						✓	
+	Manage CI/CD settings						✓	
+	Manage job triggers						✓	
+	Manage project CI/CD variables						✓	
+	Manage project protected environments						✓	
+	Manage project Secure Files						✓	
+	Manage Terraform state						✓	
+	Add project runners to project						✓	
+	Clear runner caches manually						✓	
+	Enable instance runners in project						✓	
+	This table shows granted privileges for jobs triggered by specific roles.							
+	Project Owners can do any listed action, but no users can push source and LFS together. Guest users and members with the Reporter role cannot do any of these actions.							
+	Action	Developer	Maintainer	Notes				
+	Clone source and LFS from current project	✓	✓					
+	Clone source and LFS from public projects	✓	✓					
+	Clone source and LFS from internal projects	✓	✓	Developers and Maintainers: Only if the triggering user is not an external user.				
+	Clone source and LFS from private projects	✓	✓	Only if the triggering user is a member of the project. See also Usage of private Docker images with if-not-present pull policy.				
+	Pull container images from current project	✓	✓					
+	Pull container images from public projects	✓	✓					
+	Pull container images from internal projects	✓	✓	Developers and Maintainers: Only if the triggering user is not an external user.				
+	Pull container images from private projects	✓	✓	Only if the triggering user is a member of the project. See also Usage of private Docker images with if-not-present pull policy.				
+	Push container images to current project	✓	✓	You cannot push container images to other projects.				
+								
+title#1 04	Compliance							
+	Project permissions for compliance features including compliance center, audit events, compliance frameworks, and licenses.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View allowed and denied licenses in MR	✓	✓	✓	✓	✓	✓	On GitLab Self-Managed, users with the Guest role are able to perform this action only on public and internal projects (not on private projects). External users must be have at least the Reporter role, even if the project is internal. Users with the Guest role on GitLab.com are able to perform this action only on public projects because internal visibility is not available.
+	View audit events				✓	✓	✓	Users can only view events based on their individual actions. For more details, see the prerequisites.
+	View licenses in dependency list				✓	✓	✓	
+	Manage audit streams						✓	
+								
+title#1 05	Machine learning model registry and experiment							
+	Project permissions for model registry and model experiments.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View models and versions	✓	✓	✓	✓	✓	✓	Non-members can only view models and versions in public projects with the Everyone with access visibility level. Non-members can’t view internal projects, even if they’re logged in.
+	View model experiments	✓	✓	✓	✓	✓	✓	Non-members can only view model experiments in public projects with the Everyone with access visibility level. Non-members can’t view internal projects, even if they’re logged in.
+	Create models, versions, and artifacts				✓	✓	✓	You can also upload and download artifacts with the package registry API, which uses it’s own set of permissions.
+	Edit & delete models, versions, and artifacts				✓	✓	✓	
+	Create experiments and candidates				✓	✓	✓	
+	Edit & delete experiments and candidates				✓	✓	✓	
+								
+title#1 06	Monitoring							
+	Project permissions for monitoring including error tracking and incident management:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View an incident	✓	✓	✓	✓	✓	✓	
+	Assign an incident management alert	✓	✓	✓	✓	✓	✓	
+	Participate in on-call rotation for Incident Management	✓	✓	✓	✓	✓	✓	
+	View alerts			✓	✓	✓	✓	
+	View error tracking list			✓	✓	✓	✓	
+	View escalation policies			✓	✓	✓	✓	
+	View on-call schedules			✓	✓	✓	✓	
+	Create incident			✓	✓	✓	✓	
+	Change alert status			✓	✓	✓	✓	
+	Change incident severity			✓	✓	✓	✓	
+	Change incident escalation status				✓	✓	✓	
+	Change incident escalation policy				✓	✓	✓	
+	Manage error tracking					✓	✓	
+	Manage escalation policies					✓	✓	
+	Manage on-call schedules					✓	✓	
+								
+title#1 07	Project planning							
+	Project permissions for issues:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View issues	✓	✓	✓	✓	✓	✓	
+	Create issues	✓	✓	✓	✓	✓	✓	
+	View confidential issues		✓	✓	✓	✓	✓	
+	Edit issues, including metadata, item locking, and resolving threads		✓	✓	✓	✓	✓	"Metadata includes labels, assignees, milestones, epics, weight, confidentiality, time tracking, and more.
+Guest users can only set metadata when creating an issue. They cannot change the metadata on existing issues."
+	Add internal note		✓	✓	✓	✓	✓	
+	Close and reopen issues		✓	✓	✓	✓	✓	Guest users can close and reopen issues that they authored or are assigned to.
+	Manage design management files		✓	✓	✓	✓	✓	
+	Manage issue boards		✓	✓	✓	✓	✓	
+	Manage milestones		✓	✓	✓	✓	✓	
+	Archive or reopen requirements		✓	✓	✓	✓	✓	Guest users can archive and reopen issues that they authored or are assigned to.
+	Create or edit requirements		✓	✓	✓	✓	✓	Guest users can modify the title and description that they authored or are assigned to.
+	Import or export requirements		✓	✓	✓	✓	✓	
+	Archive test cases		✓	✓	✓	✓	✓	
+	Create test cases		✓	✓	✓	✓	✓	
+	Move test cases		✓	✓	✓	✓	✓	
+	Reopen test cases		✓	✓	✓	✓	✓	
+	Import issues from a CSV file		✓		✓	✓	✓	
+	Export issues to a CSV file		✓	✓	✓	✓	✓	
+	Delete issues		✓				✓	
+	Manage Feature flags				✓	✓	✓	
+	Project permissions for tasks:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View tasks	✓	✓	✓	✓	✓	✓	
+	Create tasks	✓	✓	✓	✓	✓	✓	Guest users can create tasks for issues they authored.
+	Edit tasks, including metadata, item locking, and resolving threads	✓	✓	✓	✓	✓	✓	Guest users can modify the title and description that they authored or are assigned to.
+	Add a linked item	✓	✓	✓	✓	✓	✓	
+	Convert to another item type	✓	✓	✓	✓	✓	✓	
+	Remove from issue	✓	✓	✓	✓	✓	✓	
+	Edit tasks		✓	✓	✓	✓	✓	
+	Add internal note		✓	✓	✓	✓	✓	
+	Delete tasks		✓				✓	Users who don’t have the Planner or Owner role can delete the tasks they authored.
+	Project permissions for OKRs:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View OKRs	✓	✓	✓	✓	✓	✓	
+	Create OKRs	✓	✓	✓	✓	✓	✓	
+	Edit OKRs, including metadata, item locking, and resolving threads	✓	✓	✓	✓	✓	✓	
+	Add a child OKR	✓	✓	✓	✓	✓	✓	
+	Add a linked item	✓	✓	✓	✓	✓	✓	
+	Convert to another item type	✓	✓	✓	✓	✓	✓	
+	Edit OKRs		✓	✓	✓	✓	✓	
+	Change confidentiality in OKR		✓	✓	✓	✓	✓	
+	Add internal note		✓	✓	✓	✓	✓	
+	Project permissions for wikis:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View wiki	✓	✓	✓	✓	✓	✓	
+	Create wiki pages		✓		✓	✓	✓	
+	Edit wiki pages		✓		✓	✓	✓	
+	Delete wiki pages		✓		✓	✓	✓	
+								
+title#1 08	Packages and registry							
+	Project permissions for container registry:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Pull an image from the container registry	✓	✓	✓	✓	✓	✓	The ability to view the container registry and pull images is controlled by the container registry’s visibility permissions.
+	Push an image to the container registry				✓	✓	✓	
+	Delete a container registry image				✓	✓	✓	
+	Manage cleanup policies					✓	✓	
+	Project permissions for package registry:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Pull a package	✓	✓	✓	✓	✓	✓	On GitLab Self-Managed, users with the Guest role are able to perform this action only on public and internal projects (not on private projects). External users must be given explicit access (at least the Reporter role) even if the project is internal. Users with the Guest role on GitLab.com are only able to perform this action on public projects because internal visibility is not available.
+	Publish a package				✓	✓	✓	
+	Delete a package					✓	✓	
+	Delete a file associated with a package					✓	✓	
+								
+title#1 09	Projects							
+	Project permissions for project features:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Download project	✓	✓	✓	✓	✓	✓	On GitLab Self-Managed, users with the Guest role are able to perform this action only on public and internal projects (not on private projects). External users must be given explicit access (at least the Reporter role) even if the project is internal. Users with the Guest role on GitLab.com are only able to perform this action on public projects because internal visibility is not available.
+	Leave comments	✓	✓	✓	✓	✓	✓	
+	Reposition comments on images (posted by any user)	✓	✓	✓	✓	✓	✓	Applies only to comments on Design Management designs.
+	View Insights	✓	✓	✓	✓	✓	✓	
+	View Requirements	✓	✓	✓	✓	✓	✓	
+	View time tracking reports	✓	✓	✓	✓	✓	✓	On GitLab Self-Managed, users with the Guest role are able to perform this action only on public and internal projects (not on private projects). External users must be given explicit access (at least the Reporter role) even if the project is internal. Users with the Guest role on GitLab.com are only able to perform this action on public projects because internal visibility is not available.
+	View snippets	✓	✓	✓	✓	✓	✓	
+	View project traffic statistics			✓	✓	✓	✓	
+	Create snippets			✓	✓	✓	✓	
+	View releases		✓		✓	✓	✓	Guest users can access GitLab Releases for downloading assets but are not allowed to download the source code nor see repository information like commits and release evidence.
+	Manage releases					✓	✓	If the tag is protected, this depends on the access given to Developers and Maintainers.
+	Configure webhooks					✓	✓	
+	Manage project access tokens					✓	✓	For GitLab Self-Managed, project access tokens are available in all tiers. For GitLab.com, project access tokens are supported in the Premium and Ultimate tier (excluding trial licenses).
+	Export project					✓	✓	
+	Rename project					✓	✓	
+	Edit project badges					✓	✓	
+	Edit project settings					✓	✓	
+	Change project features visibility level					✓	✓	A Maintainer or Owner can’t change project features visibility level if project visibility is set to private.
+	Change custom settings for project integrations					✓	✓	
+	Edit comments (posted by any user)					✓	✓	
+	Add deploy keys					✓	✓	
+	Manage Project Operations					✓	✓	
+	View Usage Quotas page					✓	✓	
+	Globally delete snippets					✓	✓	
+	Globally edit snippets					✓	✓	
+	Archive project						✓	
+	Change project visibility level						✓	
+	Delete project						✓	
+	Disable notification emails						✓	
+	Transfer project						✓	
+	Project permissions for GitLab Pages:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View GitLab Pages protected by access control	✓	✓	✓	✓	✓	✓	
+	Manage GitLab Pages					✓	✓	
+	Manage GitLab Pages domain and certificates					✓	✓	
+	Remove GitLab Pages					✓	✓	
+								
+title#1 10	Repository							
+	Project permissions for repository features including source code, branches, push rules, and more:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View project code	✓	✓	✓	✓	✓	✓	On GitLab Self-Managed, users with the Guest role are able to perform this action only on public and internal projects (not on private projects). External users must be given explicit access (at least the Reporter role) even if the project is internal. Users with the Guest role on GitLab.com are only able to perform this action on public projects because internal visibility is not available. In GitLab 15.9 and later, users with the Guest role and an Ultimate license can view private repository content if an administrator (on self-managed or GitLab Dedicated) or group owner (on GitLab.com) gives those users permission. The administrator or group owner can create a custom role through the API or UI and assign that role to the users.
+	Pull project code	✓	✓	✓	✓	✓	✓	On GitLab Self-Managed, users with the Guest role are able to perform this action only on public and internal projects (not on private projects). External users must be given explicit access (at least the Reporter role) even if the project is internal. Users with the Guest role on GitLab.com are only able to perform this action on public projects because internal visibility is not available.
+	View commit status			✓	✓	✓	✓	
+	Create commit status				✓	✓	✓	If the branch is protected, this depends on the access given to Developers and Maintainers.
+	Update commit status				✓	✓	✓	If the branch is protected, this depends on the access given to Developers and Maintainers.
+	Create Git tags				✓	✓	✓	
+	Delete Git tags				✓	✓	✓	
+	Create new branches				✓	✓	✓	
+	Delete non-protected branches				✓	✓	✓	
+	Force push to non-protected branches				✓	✓	✓	
+	Push to non-protected branches				✓	✓	✓	
+	Manage protected branches					✓	✓	
+	Delete protected branches					✓	✓	
+	Push to protected branches					✓	✓	If the branch is protected, this depends on the access given to Developers and Maintainers.
+	Manage protected tags					✓	✓	
+	Manage push rules					✓	✓	
+	Remove fork relationship						✓	
+	Force push to protected branches							Not allowed for Guest, Reporter, Developer, Maintainer, or Owner. See protected branches.
+	Project permissions for merge requests:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View a merge request	✓	✓	✓	✓	✓	✓	On GitLab Self-Managed, users with the Guest role are able to perform this action only on public and internal projects (not on private projects). External users must be given explicit access (at least the Reporter role) even if the project is internal. Users with the Guest role on GitLab.com are only able to perform this action on public projects because internal visibility is not available.
+	Create snippets			✓	✓	✓	✓	
+	Create merge request				✓	✓	✓	In projects that accept contributions from external members, users can create, edit, and close their own merge requests. For private projects, this excludes the Guest role as those users cannot clone private projects. For internal projects, includes users with read-only access to the project, as they can clone internal projects.
+	Update merge request including assign, review, Code Suggestions, approve, labels, lock and resolve threads				✓	✓	✓	For information on eligible approvers for merge requests, see Eligible approvers.
+	Manage merge request settings					✓	✓	
+	Manage merge request approval rules					✓	✓	
+	Add internal note		✓	✓	✓	✓	✓	
+	Delete merge request						✓	
+								
+title#1 11	User management							
+	Project permissions for user management.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Manage team members					✓	✓	Maintainers cannot create, demote, or remove Owners, and they cannot promote users to the Owner role. They also cannot approve Owner role access requests.
+	Share (invite) projects with groups					✓	✓	When Share Group Lock is enabled the project can’t be shared with other groups. It does not affect group with group sharing.
+	View 2FA status of members					✓	✓	
+								
+title#1 12	GitLab Duo							
+	Project permissions for GitLab Duo:							
+	Action	Non-member	Guest	Planner	Reporter	Developer	Maintainer	Owner
+	Use Duo features		✓	✓	✓	✓	✓	✓
+	Configure Duo feature availability						✓	✓
+								
+								
+title#2	Group members permissions							
+	Any user can remove themselves from a group, unless they are the only Owner of the group.							
+	The following table lists group permissions available for each role:							
+title#2 01	Analytics group permissions							
+	Group permission for analytics features including value streams, product analytics, and insights:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View Insights	✓	✓	✓	✓	✓	✓	
+	View Insights charts	✓	✓	✓	✓	✓	✓	
+	View Issue analytics	✓	✓	✓	✓	✓	✓	
+	View Contribution analytics	✓	✓	✓	✓	✓	✓	
+	View value stream analytics	✓	✓	✓	✓	✓	✓	
+	View Productivity analytics			✓	✓	✓	✓	
+	View Group DevOps Adoption			✓	✓	✓	✓	
+	View metrics dashboard annotations			✓	✓	✓	✓	
+	Create/edit/delete metrics dashboard annotations				✓	✓	✓	
+								
+title#2 02	Application security group permissions							
+	Group permissions for Application Security features including dependency management, security analyzers, security policies, and vulnerability management.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View dependency list				✓	✓	✓	
+	View vulnerability report				✓	✓	✓	
+	View security dashboard				✓	✓	✓	
+	Create security policy project						✓	
+	Assign security policy project						✓	
+								
+title#2 03	CI/CD group permissions							
+	Group permissions for CI/CD features including runners, variables, and protected environments:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View group runners					✓	✓	
+	Manage group-level Kubernetes cluster					✓	✓	
+	Manage group runners						✓	
+	Manage group level CI/CD variables						✓	
+	Manage group protected environments						✓	
+								
+title#2 04	Compliance group permissions							
+	Group permissions for compliance features including compliance center, audit events, compliance frameworks, and licenses.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View audit events				✓	✓	✓	Users can view only events based on their individual actions. For more details, see the prerequisites.
+	View licenses in the dependency list				✓	✓	✓	
+	View the compliance center						✓	
+	Manage compliance frameworks						✓	
+	Assign compliance frameworks to projects						✓	
+	Manage audit streams						✓	
+								
+title#2 05	GitLab Duo group permissions							
+	Group permissions for GitLab Duo:							
+	Action	Non-member	Guest	Planner	Reporter	Developer	Maintainer	Owner
+	Use Duo features				✓	✓	✓	✓
+	Configure Duo feature availability						✓	✓
+	Configure GitLab Duo Self Hosted							✓
+	Enable beta and experimental features							✓
+	Purchase Duo seats							✓
+								
+title#2 06	Groups group permissions							
+	Group permissions for group features:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Browse group	✓	✓	✓	✓	✓	✓	
+	View group audit events				✓	✓	✓	Developers and Maintainers can only view events based on their individual actions. For more details, see the prerequisites.
+	Create project in group				✓	✓	✓	"Developers, Maintainers and Owners: Only if the project creation role is set for the instance or for the group.
+Developers: Developers can push commits to the default branch of a new project only if the default branch protection is set to “Partially protected” or “Not protected”."
+	Create subgroup					✓	✓	Maintainers: Only if users with the Maintainer role can create subgroups.
+	Change custom settings for the project integrations					✓	✓	
+	Edit epic comments (posted by any user)		✓			✓	✓	
+	Fork project into a group					✓	✓	
+	View Billing						✓	Does not apply to subgroups
+	View group Usage Quotas page						✓	Does not apply to subgroups
+	Migrate group						✓	
+	Delete group						✓	
+	Manage subscriptions, storage, and compute minutes						✓	
+	Manage group access tokens						✓	
+	Change group visibility level						✓	
+	Edit group settings						✓	
+	Configure project templates						✓	
+	Configure SAML SSO						✓	Does not apply to subgroups
+	Disable notification emails						✓	
+								
+title#2 07	Project planning group permissions							
+	Group permissions for project planning features including iterations, milestones, and labels:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Manage group labels		✓	✓	✓	✓	✓	
+	Manage group milestones		✓	✓	✓	✓	✓	
+	Manage iterations		✓	✓	✓	✓	✓	
+	Group permissions for epics:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View epic	✓	✓	✓	✓	✓	✓	
+	Create epic		✓	✓	✓	✓	✓	
+	Edit epic, including metadata, item locking, and resolving threads		✓	✓	✓	✓	✓	
+	Delete epic		✓				✓	
+	Manage epic boards		✓	✓	✓	✓	✓	
+	Add issue to an epic	✓	✓	✓	✓	✓	✓	You must have permission to view the epic and edit the issue.
+	Add/remove child epics	✓	✓	✓	✓	✓	✓	You must have permission to view the parent and child epics.
+	Add internal note		✓	✓	✓	✓	✓	
+	Group permissions for wikis:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View group wiki	✓	✓	✓	✓	✓	✓	Guests: In addition, if your group is public or internal, all users who can see the group can also see group wiki pages.
+	Create group wiki pages		✓		✓	✓	✓	
+	Edit group wiki pages		✓		✓	✓	✓	
+	Delete group wiki pages		✓		✓	✓	✓	
+								
+title#2 08	Packages and registries group permissions							
+	Group permissions for container registry:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Pull a container registry image	✓	✓	✓	✓	✓	✓	Guests can only view events based on their individual actions.
+	Pull a container image using the dependency proxy	✓	✓	✓	✓	✓	✓	
+	Delete a container registry image				✓	✓	✓	
+	Group permissions for package registry:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Pull packages			✓	✓	✓	✓	
+	Publish packages				✓	✓	✓	
+	Delete packages					✓	✓	
+	Manage package settings						✓	
+	Manage dependency proxy cleanup policies						✓	
+	Enable dependency proxy						✓	
+	Disable dependency proxy						✓	
+	Purge the dependency proxy for a group						✓	
+	Enable package request forwarding						✓	
+	Disable package request forwarding						✓	
+								
+title#2 09	Repository group permissions							
+	Group permissions for repository features including merge requests, push rules, and deploy tokens.							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	Manage deploy tokens						✓	
+	Manage merge request settings						✓	
+	Manage push rules						✓	
+								
+title#2 10	User management group permissions							
+	Group permissions for user management:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View 2FA status of members						✓	
+	Manage group members						✓	
+	Manage group-level custom roles						✓	
+	Share (invite) groups to groups						✓	
+	Filter members by 2FA status						✓	
+								
+title#2 11	Workspace group permissions							
+	Groups permissions for workspaces:							
+	Action	Guest	Planner	Reporter	Developer	Maintainer	Owner	Notes
+	View workspace cluster agents mapped to a group					✓	✓	
+	Map or unmap workspace cluster agents to and from a group						✓	
