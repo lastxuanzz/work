@@ -1,0 +1,158 @@
+terraform init：初始化一个包含Terraform代码的工作目录。	
+terraform plan：查看并创建变更计划。	
+terraform apply：生成并执行计划（重要）。	
+	
+terraform fmt ：格式化代码，统一缩进和风格 （-recursive 递归格式化目录下所有文件）	
+	
+	
+云厂商提供的provider	
+https://registry.terraform.io/browse/providers	
+docs	
+https://developer.hashicorp.com/terraform/language	
+	
+关键字	
+resource：定义基础设施资源（如虚拟机、网络、数据库等）	
+provider：配置云服务商（如 AWS、Azure、GCP）或平台（如 Kubernetes）	
+variable：声明输入变量，支持参数化配置。类型：string、number、bool、list(<TYPE>)、set(<TYPE>)、map(<TYPE>)、object({<ATTR NAME> = <TYPE>, ... })、tuple([<TYPE>, ...])	
+output：定义输出值，暴露资源属性供其他模块或 CLI 使用。在provider的文档中查看指定resource的输出 （Attribute Reference）	
+module：调用可复用模块，实现代码抽象和复用	
+data：引用外部数据源或已有资源（只读查询）	
+locals：定义局部变量，简化复杂表达式	
+	
+	
+在module中定义对象的值时（以创建安全组的出站为例）：	
+module：	
+dynamic "egress" {	
+   for_each = var.egress_rules	
+  content {	
+    from_port   = egress.value.from_port	
+    to_port     = egress.value.to_port	
+    protocol    = egress.value.protocol	
+    cidr_blocks = egress.value.cidr_blocks	
+  }	
+}	
+	
+var	
+variable "egress_rules" {	
+  type = list(object({	
+    from_port   = number	
+    to_port     = number	
+    protocol    = string	
+    cidr_blocks = list(string)	
+  }))	
+}	
+	
+main	
+module "web_sg" {	
+  source = "./modules/security-group"	
+	
+  egress_rules = [	
+    {	
+      from_port   = 80	
+      to_port     = 80	
+      protocol    = "tcp"	
+      cidr_blocks = ["0.0.0.0/0"]	
+    },	
+    {	
+      from_port   = 443	
+      to_port     = 443	
+      protocol    = "tcp"	
+      cidr_blocks = ["0.0.0.0/0"]	
+    }	
+  ]	
+}	
+	
+	
+定义一个json时：	
+module：	
+resource "aws_iam_role" "this" {	
+  name = "my-role"	
+  assume_role_policy = jsonencode(var.assume_role_policy) # 对象转JSON字符串	
+}	
+	
+var：	
+方案1	
+variable "assume_role_policy" {	
+  description = "IAM角色的信任关系策略文档"	
+  type = object({	
+    Version = string	
+    Statement = list(object({	
+      Effect    = string	
+      Principal = object({ Service = string })	
+      Action    = string	
+    }))	
+  })	
+}	
+方案2	
+variable "assume_role_policy" {	
+  description = "IAM角色的信任关系策略文档"	
+  type        = any  # 可以是对象或字符串类型	
+}	
+	
+main	
+locals {	
+  base_assume_policy = {	
+    Version = "2012-10-17"	
+    Statement = [{	
+      Effect    = "Allow"	
+      Principal = { Service = "ec2.amazonaws.com" }	
+      Action    = "sts:AssumeRole"	
+    }]	
+  }	
+}	
+	
+module "my_role" {	
+  assume_role_policy = local.base_assume_policy	
+}	
+	
+	
+在resource中判断是否要创建该资源：	
+使用count或for_each	
+在output中也要加入判断（判断是否为空）	
+	
+module "vpc" {	
+"  vpc_id              = module.vpc.vpc_id      # 使用module “vpc”中 输出的值
+（在module “vpc”中的output中定义输出的值）"	
+  security_group_name = "example-security-group"	
+}	
+	
+module "ec2" {	
+  source            = "../../modules/ec2"	
+  ami_id            = var.ami_id	
+  instance_type     = var.instance_type	
+  security_group_id = module.security_group.security_group_id	
+  subnet_id         = module.vpc.subnet_id	
+  vpc_id            = module.vpc.vpc_id	
+}	
+	
+	
+	
+文件目录	
+├─env	
+│  ├─dev	# 开发环境
+│  │      main.tf	# 环境主入口
+│  │      outputs.tf	# 暴露环境级输出
+│  │      provider.tf	# 定义云服务商配置
+│  │      README.md	
+│  │      terraform.tfvars	# 环境变量赋值文件
+│  │      variables.tf	# 环境级变量声明
+│  │      version.tf	# 锁定Terraform版本
+│  │	
+│  └─prod	# 本番环境（结构同dev）
+│            …	
+│	
+└─modules	# 可复用模块仓库
+    ├─vpc	# VPC网络模块
+    │      main.tf	
+    │      outputs.tf	
+    │      variables.tf	
+    │	
+    ├─security_group	# 安全组模块
+    │      main.tf	
+    │      outputs.tf	
+    │      variables.tf	
+    │	
+    └─ec2	# EC2实例模块
+            main.tf	
+            outputs.tf	
+            variables.tf	
