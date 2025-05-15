@@ -1,0 +1,16 @@
+{
+    "messageType": "DATA_MESSAGE",
+    "owner": "953857171724",
+    "logGroup": "/aws/events/loggrp-ufa-log-kanshi-health-message-001",
+    "logStream": "a8379af1-f107-3c89-b7c7-3742f0a152bd",
+    "subscriptionFilters": [
+        "filter-test"
+    ],
+    "logEvents": [
+        {
+            "id": "38952522081939251933135356548111590328317310653108125696",
+            "timestamp": 1746691500000,
+            "message": "1-1-1"
+        }
+    ]
+}
