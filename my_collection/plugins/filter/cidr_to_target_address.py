@@ -1,7 +1,7 @@
 from ansible.errors import AnsibleFilterError
 from ipaddress import IPv4Network
 
-def cidr(cidr: str, host_index: int, with_mask: bool) -> str:
+def calc_target_address(cidr: str, host_index: int, with_mask: bool) -> str:
 
     if (type(cidr), type(host_index), type(with_mask)) != (str, int, bool):
         raise AnsibleFilterError('Invalid argument types: expected (str, int, bool)')
@@ -23,10 +23,10 @@ def cidr(cidr: str, host_index: int, with_mask: bool) -> str:
 
 
     except Exception as e:
-        raise AnsibleFilterError(f'error: {str(e)}')
+        raise AnsibleFilterError(f'error: {e}')
 
 class FilterModule(object):
     def filters(self):
         return {
-            'cidr_to_target_address': cidr
+            'cidr_to_target_address': calc_target_address
         }

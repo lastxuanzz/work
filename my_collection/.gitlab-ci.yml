@@ -1,9 +1,19 @@
 stages:
   - test
 
-test:
+unit_test:
   stage: test
-  script:
+  # image: 
+  before_script:
     - pip install ansible pytest
-    - pytest tests/units
-    - pytest tests/integration
+  script:
+    - python3 -m pytest my_collection/tests/units
+    # 在某些环境下（如虚拟环境、CI/CD），pytest 命令可能找不到，但 python3 -m pytest 总能找到。
+    # 保证用的是当前环境下的 Python 和 pytest，不会因为 PATH 问题用错版本。
+
+integration_test:
+  stage: test
+  before_script:
+    - pip install ansible
+  script:
+    - ansible-test integration
