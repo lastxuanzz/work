@@ -1,0 +1,9 @@
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - pip install ansible pytest
+    - pytest tests/units
+    - pytest tests/integration
