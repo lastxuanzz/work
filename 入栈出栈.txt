@@ -1,0 +1,32 @@
+新建user
+赋予role：rest_api_explorer 和 表role
+
+
+
+===============================================================================
+
+
+出栈
+REST Message
+新建断点→新建方法。。
+
+或
+
+// Create an empty RESTMessageV2 object
+  var getQuote = new sn_ws.RESTMessageV2();
+  // Set the endpoint
+  getQuote.setEndpoint('https://cloud.iexapis.com/v1/stock/${symbol}/quote');
+  // Set the HTTP method (get, post, put, patch, delete)
+  getQuote.setHttpMethod('get');
+  // Set HTTP Query Parameters
+  getQuote.setQueryParameter('displayPercent','true');
+  getQuote.setQueryParameter('token','INSERT_TOKEN_HERE');
+  // Set values for endpoint variables
+  getQuote.setStringParameterNoEscape('symbol', current.short_description);
+
+在 RESTMessageV2 API 中编写 REST 交互脚本的其他有用方法包括：
+setRequestHeader()
+setLogLevel()
+setStringParameter()
+setRequestorProfile()
+setMutualAuth()
