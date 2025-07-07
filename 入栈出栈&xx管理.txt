@@ -30,3 +30,18 @@ setLogLevel()
 setStringParameter()
 setRequestorProfile()
 setMutualAuth()
+
+
+
+
+===============================================================================
+
+Incident Management:
+https://www.servicenow.com/docs/ja-JP/bundle/yokohama-it-service-management/page/product/incident-management/concept/c_IncidentManagement.html
+
+Problem Management：
+https://www.servicenow.com/docs/ja-JP/bundle/yokohama-it-service-management/page/product/problem-management/concept/c_ProblemManagement.html
+
+Change Management：
+https://www.servicenow.com/docs/ja-JP/bundle/yokohama-it-service-management/page/product/planning-and-policy/concept/c_RequestManagement.html
+
