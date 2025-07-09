@@ -1,29 +1,26 @@
 //新建onload函数，在onLoad中定义全局函数
-
 function onLoad() {
-	// top.handleFieldChange 相当于 window.handleFieldChange
-	// 而servicenow中不让用window.xxx，所以用top.xxx
-	
-	// 定义前确保该全局函数没有被定义
-	if (typeof top.handleFieldChange === 'undefined') {
-		// 定义全局函数handleFieldChange
-		top.handleFieldChange = function() {
-			// 获取所有字段值
-			var test1 = g_form.getValue("test1");
-			var test2 = g_form.getValue("test2");
-			var test3 = g_form.getValue("test3");
+    // top.handleFieldChange 相当于 window.handleFieldChange
+    // 而servicenow中不让用window.xxx，所以用top.xxx
+    // 定义前确保该全局函数没有被定义
+    if (typeof top.handleFieldChange === 'undefined') {
+        // 定义全局函数handleFieldChange
+        top.handleFieldChange = function() {
+            // 获取所有字段值
+            var test1 = g_form.getValue("test1");
+            var test2 = g_form.getValue("test2");
+            var test3 = g_form.getValue("test3");
 
-			// 检查所有字段是否都有值
-			if (!test1 || !test2 || !test3) {
-				return;
-			}
-			alert("test2");
+            // 检查所有字段是否都有值
+            if (!test1 || !test2 || !test3) {
+                return;
+            }
+            alert("test2");
 
-		};
-	}else{
-		alert("定义失败")
-	}
-
+        };
+    } else {
+        alert("定义失败")
+    }
 
 }
 
@@ -33,9 +30,9 @@ function onChange(control, oldValue, newValue, isLoading) {
     if (isLoading) {
         return;
     }
-    }
-    // 调用全局函数
-    handleFieldChange();
+}
+// 调用全局函数
+handleFieldChange();
 
 }
 
