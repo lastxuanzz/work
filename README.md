@@ -83,13 +83,13 @@ function onChange(control, oldValue, newValue, isLoading) {
         return;
     }
 
-	// 定义全局数组
+    // 定义全局数组
     if (typeof top.var1History === 'undefined') {
         top.var1History = [];
     }
 
-	// 每次onchange，newValue都会存到数组中
-	// 数组的倒数第二个元素就是onchange前的值
+    // 每次onchange，newValue都会存到数组中
+    // 数组的倒数第二个元素就是onchange前的值
     var1History.push(newValue);
 
 	var allOptions = {
