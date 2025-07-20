@@ -155,7 +155,7 @@ function onChange(control, oldValue, newValue, isLoading) {
 **场景：**<br>
 针对多个onChange方法，拥有相同逻辑，将这一部分相同逻辑写成一个function，在onChange直接调用<br>
 
-1. 创建一个多行的text var。 将相同逻辑写成一个方法，将其设置为多行的text的默认值（此时在text中表现为string类型）
+1. 创建一个多行的text var。 将相同逻辑写成一个方法，将其设置为多行的text的默认值（此时在text中表现为string类型），并将其设置为readOnly和Hidden。
 ```javascript
 // 如果要使用servicenow对象，要将使用的对象写成形参的实行，后续调用时传入实参
 // 如：我要使用g_form对象， 我要将写一个形参g_Form，后续调用时，传入实参g_form，这样g_form对象才能使用
