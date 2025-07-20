@@ -1,4 +1,4 @@
-## 在Catalog Item中设置全局属性方法
+## 在Catalog Item中设置全局属性的方法
 
 ### 方法1
 1. 创建一个onLoad方法
@@ -42,36 +42,6 @@ function onChange(control, oldValue, newValue, isLoading) {
 
 ## 在Catalog Item中设置全局属性的缺点
 - 用户在浏览器的控制台中，可以直接修改这个全局变量，会导致原有的数据失效。
-
-***
-
-## 获取旧数据的方法（不使用全局变量）
-
-**场景：**<br>
-有一个下拉框select1，select1中的可选值为：空, a, b, c...<br>
-现在我想将选取值的历史记录放在一个数组中，以便于我可以获取上一次选取的值（因为onChange中的oldValue是onLoad时的值）<br>
-
-1. 创建一个text类型的var_text，并将其设置为readOnly和Hidden，默认值设置为`[]`， 注意：这个`[]`在text的变量中是一个字符串`'[]'`
-2. 创建一个select类型的var_select，可选值设置为空, a, b, c...
-3. 为var_select创建一个onChange方法
-```javascript
-function onChange(control, oldValue, newValue, isLoading) {
-    if (isLoading) {
-        return;
-    }
-    // 获取var_text的数据，即字符串： '[xx, xx, xx]'
-    arr = g_form.getValue('var_text');
-    // 将字符串转成数组 '[xx, xx, xx]' 👉 [xx, xx, xx]
-    arr = JSON.parse(arr);
-    // push新元素 [xx, xx, xx] 👉 [xx, xx, xx, XXX]
-    arr.push(newValue);
-    // 数组转成字符串 [xx, xx, xx, XXX] 👉 '[xx, xx, xx, XXX]'
-    arr = JSON.stringify(arr);
-    // 将字符串赋值为var_text
-    g_form.setValue('var_text', arr);
-}
-```
-4. 这样，var_text中存放的就是var_select的选择历史记录啦
 
 ***
 
@@ -148,4 +118,68 @@ function onChange(control, oldValue, newValue, isLoading) {
 
 }
 
+```
+
+## 获取旧数据的方法（不使用全局变量）
+
+**场景：**<br>
+有一个下拉框select1，select1中的可选值为：空, a, b, c...<br>
+现在我想将选取值的历史记录放在一个数组中，以便于我可以获取上一次选取的值（因为onChange中的oldValue是onLoad时的值）<br>
+
+1. 创建一个text类型的var_text，并将其设置为readOnly和Hidden，默认值设置为`[]`， 注意：这个`[]`在text的变量中是一个字符串`'[]'`
+2. 创建一个select类型的var_select，可选值设置为空, a, b, c...
+3. 为var_select创建一个onChange方法
+```javascript
+function onChange(control, oldValue, newValue, isLoading) {
+    if (isLoading) {
+        return;
+    }
+    // 获取var_text的数据，即字符串： '[xx, xx, xx]'
+    arr = g_form.getValue('var_text');
+    // 将字符串转成数组 '[xx, xx, xx]' 👉 [xx, xx, xx]
+    arr = JSON.parse(arr);
+    // push新元素 [xx, xx, xx] 👉 [xx, xx, xx, XXX]
+    arr.push(newValue);
+    // 数组转成字符串 [xx, xx, xx, XXX] 👉 '[xx, xx, xx, XXX]'
+    arr = JSON.stringify(arr);
+    // 将字符串赋值为var_text
+    g_form.setValue('var_text', arr);
+}
+```
+4. 这样，var_text中存放的就是var_select的选择历史记录啦
+
+***
+
+## 如何将一个function写在一个var中，并在多个onChange可以调用？（不使用全局变量）
+
+**场景：**<br>
+针对多个onChange方法，拥有相同逻辑，将这一部分相同逻辑写成一个function，在onChange直接调用<br>
+
+1. 创建一个多行的text var。 将相同逻辑写成一个方法，将其设置为多行的text的默认值（此时在text中表现为string类型）
+```javascript
+// 如果要使用servicenow对象，要将使用的对象写成形参的实行，后续调用时传入实参
+// 如：我要使用g_form对象， 我要将写一个形参g_Form，后续调用时，传入实参g_form，这样g_form对象才能使用
+function(g_Form) {
+    console.log('Hi!!!!!!!!');
+    console.log(g_Form.getValue('choice'));
+    console.log(g_Form.getValue('arr'));
+    console.log(g_Form.getValue('object_test'));
+    console.log(g_Form.getValue('fucntion_test'));
+};
+```
+
+2. 写onChange方法
+```javascript
+function onChange(control, oldValue, newValue, isLoading) {
+    if (isLoading) {
+        return;
+    }
+    // 获取字符串形式的方法
+	var funcString = g_form.getValue('fucntion_test');
+    // 新建构造函数，将字符串形式的方法，转成function格式
+	var newFunc = new Function('return ' + funcString)();
+    // 调用方法时传入实参
+	newFunc(g_form);
+
+}
 ```
