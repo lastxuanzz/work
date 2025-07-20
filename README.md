@@ -135,15 +135,15 @@ function onChange(control, oldValue, newValue, isLoading) {
         return;
     }
     // 获取var_text的数据，即字符串： '[xx, xx, xx]'
-    arr = g_form.getValue('var_text');
+    var arr_str = g_form.getValue('var_text');
     // 将字符串转成数组 '[xx, xx, xx]' 👉 [xx, xx, xx]
-    arr = JSON.parse(arr);
+    var arr = JSON.parse(arr_str);
     // push新元素 [xx, xx, xx] 👉 [xx, xx, xx, XXX]
     arr.push(newValue);
     // 数组转成字符串 [xx, xx, xx, XXX] 👉 '[xx, xx, xx, XXX]'
-    arr = JSON.stringify(arr);
+    var arrNew = JSON.stringify(arr);
     // 将字符串赋值为var_text
-    g_form.setValue('var_text', arr);
+    g_form.setValue('var_text', arrNew);
 }
 ```
 4. 这样，var_text中存放的就是var_select的选择历史记录啦
