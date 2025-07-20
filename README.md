@@ -5,7 +5,7 @@
 ```javascript
 function onLoad() {
     // 在新建top的属性xxx前，还应检查top.xxx的类型是否为undefined
-    // servicenow中吐过有这个全局属性，就会被覆盖了，影响到了servicenow原来的功能
+    // servicenow中如果有这个全局属性，就会被覆盖了，影响到了servicenow原来的功能
     if (typeof top.top的属性1 === 'undefined') {
         top.top的属性1 = 'xxxxxxxxx';
     }
