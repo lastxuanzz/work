@@ -183,3 +183,37 @@ function onChange(control, oldValue, newValue, isLoading) {
 
 }
 ```
+
+### 记录旧值，不用数组
+```javascript
+function onChange(control, oldValue, newValue, isLoading) {
+    if (isLoading) {
+        return;
+    }
+
+    // 获取上一次的选取值
+    var oldvalue_str = g_form.getValue('oldvalue_str');
+
+    // 获取所有的option
+    var allOptions_str = g_form.getValue('alloptions');
+    var allOptions = JSON.parse(allOptions_str);
+
+    // 如果旧值为空或者新值为空，则无需对var2的值进行删除
+    if (oldvalue_str == '' || newValue != '') {
+        allOptions[newValue].forEach(function(opt) {
+            g_form.addOption('var2', opt.value, opt.label);
+        });
+    }
+
+    // 若旧值不为空，则需对var2的值进行删除
+    if (oldvalue_str != '') {
+        allOptions[oldvalue_str].forEach(function(opt) {
+            g_form.removeOption('var2', opt.value);
+        });
+    }
+
+	// 将newValue赋值给记录旧值的框框，供下次onChange时使用
+    g_form.setValue('oldvalue_str', newValue);
+
+}
+```
