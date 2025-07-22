@@ -3,7 +3,7 @@
 (function executeRule(current, previous /*null when async*/ ) {
     // current和previous都是一个GlideRecord对象，当前和过去
     // 获取当前的system_code值
-    var syscode = current.system_code;
+    var syscode = current.getValue('system_code');
     // 实例化表对象，x_1359700_apply_system是表名
     var gr = new GlideRecord('x_1359700_apply_system');
     // 添加查询的filter
