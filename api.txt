@@ -1,0 +1,113 @@
+Server：	
+	
+GlideRecord：	
+GlideRecord API 是在服务器端代码上与数据库交互的主要方法。GlideRecord 是包含单个表中的记录的对象。使用 API 实例化 GlideRecord 对象并添加查询参数、过滤器、限制和排序。	
+initialize()	在插入之前创建适合填充的空记录。
+query()	根据查询方法（如 addQuery（） 和 addEncodedQuery（））中指定的筛选器对表运行查询。
+newRecord()	创建新的 GlideRecord 记录，设置字段的默认值，并为记录分配唯一 ID。
+insert()	使用为当前记录设置的字段值插入新记录。
+update()	使用所做的任何更改更新 GlideRecord。如果记录尚不存在，则插入该记录。
+deleteRecord()	删除当前记录。
+addQuery()	提供构建请求的功能，该请求在执行时返回指定表中与请求匹配的行。
+addEncodedQuery()	将编码查询添加到可能已设置的其他查询。
+hasNext()	确定 GlideRecord 对象中是否有更多记录。
+next()	移动到 GlideRecord 对象中的下一条记录。
+get()	返回当前 GlideRecord 对象中的指定记录。
+orderBy()	排序
+orderByDesc()	排序
+canCreate()	确定访问控制规则（包括用户角色）是否允许在此表中插入新记录。
+canWrite()	…
+canRead()	…
+canDelete()	…
+addOrCondition()	将两个或三个参数的 OR 条件追加到现有 GlideQueryCondition。
+	
+GlideSystem：	
+addErrorMessage()	为当前会话添加错误消息。
+addInfoMessage()	为当前会话添加一条信息消息。异步业务规则不支持此方法。
+eventQueue()	为事件管理器排队事件。
+getMessage()	从“消息 [sys_ui_message] 表中检索已翻译的消息以显示在 UI 中。
+getProperty()	获取 Glide 属性的值。如果未找到该属性，则返回备用值。
+getSession()	获取对当前 Glide 会话的引用。
+error()	将错误消息写入系统日志。
+debug()	将调试消息写入系统日志。
+info()	将信息消息写入系统日志。
+warn()	将警告消息写入系统日志。
+generateGUID()	生成可在需要唯一标识符时使用的 GUID。
+getUser()	返回对当前用户的作用域 GlideUser 对象的引用。
+hasRole()	确定当前用户是否具有指定的角色。
+isLoggedIn()	确定当前用户当前是否已登录。
+isMobile()	您可以确定请求是否来自移动设备。
+nil()	查询对象，如果对象为 null、undefined 或包含空字符串，则返回 true。
+setRedirect()	设置此事务的重定向 URI，然后确定用户将看到的下一页。
+setProperty()	如果属性在脚本的作用域内，则将指定的键设置为指定的值。
+	
+GlideDateTime：	
+add()	将 GlideTime 对象添加到当前 GlideDateTime 对象。
+addDaysUTC()	向当前 GlideDateTime 对象添加指定的天数。负参数减去天数。该方法确定与 GlideDateTime 对象存储的值等效的 UTC 日期和时间，然后使用 UTC 日期和时间值添加或减去天数。
+addMonthsUTC()	向当前 GlideDateTime 对象添加指定的月数。负参数减去月份。该方法确定与 GlideDateTime 对象存储的值等效的 UTC 日期和时间，然后使用 UTC 日期和时间值添加或减去月份。
+addSeconds()	将指定的秒数添加到当前 GlideDateTime 对象。
+addweeksUTC()	…
+addYearsUTC()	…
+after()	确定 GlideDateTime 对象的日期和时间是否出现在指定对象的日期和时间之后。
+before()	确定 GlideDateTime 对象的日期和时间是否早于指定的 GlideDateTime 对象的日期和时间。
+compareTo()	比较两个日期和时间对象，以确定它们是等效的，还是一个对象出现在另一个对象之前或之后。
+equals()	将日期时间与现有相等值进行比较。
+getDayOfMonthUTC()	获取 GlideDateTime 对象存储的月份中的某一天，以 UTC 时区表示。
+getLocalTime()	返回一个 GlideTime 对象，该对象表示用户时区中 GlideDateTime 对象的时间部分。
+getMonthUTC()	获取 GlideDateTime 对象存储的月份，以 UTC 时区表示。
+getTime()	返回一个 GlideTime 对象，该对象表示 GlideDateTime 对象的时间部分。
+getWeekOfYearUTC()	所有星期都从周日开始。一年中的第一周是包含新年中至少一天的一周。从 2015 年 12 月 27 日星期日开始的一周被视为 2016 年的第一周，因为该周包含 1 月 1 日和 2 日。
+getYearUTC()	获取 GlideDateTime 对象存储的年份，以 UTC 时区表示。
+isValid()	确定值是否为有效日期和时间。
+onOrAfter()	确定 GlideDateTime 对象的数据和时间是否出现在指定的 GlideDateTime 对象的日期和时间之上或之后
+onOrBefore()	确定 GlideDateTime 对象的数据和时间是否在指定的 GlideDateTime 对象的日期和时间或之前出现。
+subtract()	返回两个指定 GlideDateTime 对象之间的持续时间差异。
+getDate()	返回 GlideDateTime 对象存储的日期。默认以标准格式 yyyy-MM-dd 表示，并以系统时区 GMT 表示。
+	
+GlideElement：	
+toString()	将 GlideRecord 字段的值转换为字符串。
+nil()	确定字段是否为 null。
+	
+Client	
+	
+GlideForm：	
+addErrorMessage()	在窗体顶部显示指定的错误消息。
+addInfoMessage()	在窗体顶部显示指定的info消息。
+addoption()	将选择添加到选择列表字段的末尾。
+clearOptions()	从选择列表中删除所有选项。
+clearValue()	从字段中删除任何值。
+disableAttachments()	防止添加文件附件。
+enableAttachments()	允许添加文件附件。显示回形针图标。
+hideRelatedLists()	隐藏表单上的所有相关列表。
+isMandatory()	如果字段是必填字段，则返回 true。
+removeOption()	从选择列表中删除指定的选项。
+setDisabled()	使指定的字段可用或不可用。
+setReadonly()	使指定的字段为只读或可编辑。
+setVisible()	显示或隐藏字段。
+setValue()	将指定表单字段的值设置为传入值。
+getLabelOf()	返回字段标签的纯文本值。
+getOption()	返回名为 fieldName 的选定框的 option 元素 其中 choiceValue 与选项值匹配。
+getReference()	返回指定字段的 GlideRecord。
+	
+GlideUser：	
+firstName	
+lastName	
+userID	返回当前用户的 sys_id。
+userName	当前用户的username，例如 gsmith02。它不是user's name，例如 George Smith。
+hasRole()	如果当前用户具有指定的角色或 admin 角色，则返回 true。
+hasRoleExactly()	确定当前用户是否具有指定的角色。
+hasRoleFromList()	如果当前用户至少具有一个指定角色或具有 admin 角色，则返回 true。
+hasRoles()	如果当前用户具有任何角色，则返回 true。
+getClientData()	设置可以使用 getClientData（） 的
+getFullName()	返回当前用户的名字和姓氏。
+	
+GlideAjax：GlideAjax 的构造函数。	
+addParam()	指定要传递给与此 GlideAjax 对象关联的服务器端函数的参数名称和值。
+getXML()	向服务器发送请求以执行与此关联的方法和参数 GlideAjax 对象。
+	服务器异步处理请求，并在准备就绪时通过指定为 callback_function 的函数返回结果。
+getXMLAnswer()	异步调用处理器，并获取 XML 格式的响应的 answer 元素。
+	
+	
+JSON()	
+parse()	从 JSON 格式的字符串创建对象或基元类型。
+stringify()	从 JSON 对象创建字符串。
