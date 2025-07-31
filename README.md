@@ -1,12 +1,12 @@
 # Flow
 
-## Flow 的 Trigger：Service Catalog
+## 1.Flow 的 Trigger：Service Catalog
 将Trigger设置为Service Catalog的作用：<br>
 - 只有将Trigger设置为Service Catalog，才能在catalog item的flow中，选择该flow<br>
 - 添加Action：Ask For Approval（选择将请求发送给谁），作用是将申请发送到sysapproval_approver表中
 - if分支中加上Approval的状态是否为Approved（上一步中，承认者是否承认），这个字段来源于sysapproval_approver表，而不是表sc_req_item
 
-## 在Flow中自定义Action整型json
+## 2.在Flow中自定义Action整型json
 ```JavaScript
 (function execute(inputs, outputs) {
     // script的入力值是action的入力值，是一个reference类型，表request Item
