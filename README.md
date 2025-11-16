@@ -1,3 +1,4 @@
+## 查表中的值
 html:
 ```html
 <div>
@@ -104,4 +105,76 @@ server:
 
 	}
 })();
+```
+
+## API
+html:
+```html
+<div>
+<!-- your widget template -->
+  <button type="button"
+          class="btn btn-primary"
+          ng-click="onButtonClick()">
+    <span>api Request</span>
+  </button>
+</div>
+```
+
+client:
+```javascript
+api.controller=function($scope) {
+  /* widget controller */
+  var c = this;
+	var ipAddress = '8.8.8.8';
+	$scope.onButtonClick = function () {
+		c.server.get({
+			action: 'checkIp',
+			ip: ipAddress
+		}).then(function(res){
+			console.log('IP信息查询成功:', res.data.city);
+		})
+		
+	}
+};
+```
+
+server:
+```javascript
+(function() {
+	if(input && input.action === 'checkIp'){
+		try{
+			var request  = new sn_ws.RESTMessageV2();        
+			request.setHttpMethod('get');
+
+			//endpoint - ServiceNow REST Attachment API        
+			request.setEndpoint('https://ipinfo.io/' + input.ip + '/json');        
+			var response = request.execute();    
+			var httpResponseStatus = response.getStatusCode();  
+			var responseBody = response.getBody();
+			if (httpResponseStatus === 200) {
+				var ipInfo = JSON.parse(responseBody);
+				data.city = ipInfo.country;
+			}
+		}
+		catch(ex){
+			var message  = ex.getMessage();        
+			gs.info(message);    
+		}
+	}
+
+})();
+
+
+/*
+POST:
+var r = new sn_ws.RESTMessageV2();
+r.setEndpoint("https://abc.com"); 
+r.setRequestHeader("Accept", "application/json");
+r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); ******important*****
+r.setRequestBody(body);
+r.setHttpMethod('POST');
+var response = r.execute();
+var responseBody = response.getBody();
+var httpStatus = response.getStatusCode();
+*/
 ```
