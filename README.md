@@ -6,7 +6,7 @@ content表：sn_ex_sp_notifs_portal_notification_content_config
 ### sys_notification
 1. Category选 Service Catalog
 2. When to send<br>
-Trigger:Record Change, Updated, Stage change to xxx(Flow中设置，将stage变为error, 更改sc_req_item字段comments)
+Trigger:Record Change, Updated, Stage change to xxx(Flow中设置，将stage变为error, 更改sc_req_item字段comments(コメント))
 3. Who will receive<br>
 Recipients listed in fields:Opened by
 4. 设置Contents<br>
